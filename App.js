@@ -25,10 +25,14 @@ export default function App() {
 
             // You can return any component that you like here!
             return <MaterialIcons name={iconName} size={size} color={color} />;
-          }
+          },
         })}
         tabBarOptions={{
-          activeTintColor: colors.neutral[100]
+          activeTintColor: colors.neutral[100],
+          inactiveTintColor: colors.neutral[200],
+          style: {
+            backgroundColor: colors.neutral[900],
+          },
         }}
       >
         <Tab.Screen name="Menu" component={Menu} />
