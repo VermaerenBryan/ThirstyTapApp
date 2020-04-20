@@ -5,6 +5,12 @@ import Constants from 'expo-constants';
 import colors from './colors';
 
 export default StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+  },
   backgroundDark: {
     backgroundColor: colors.neutral[900],
   },
@@ -16,8 +22,11 @@ export default StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#fff',
     padding: 20,
+    marginTop: 8,
     marginVertical: 8,
     marginHorizontal: 16,
+    borderColor: colors.neutral[100],
+    borderWidth: 2,
     borderRadius: 5,
   },
   info: {
@@ -35,5 +44,22 @@ export default StyleSheet.create({
     fontWeight: '600',
     color: colors.neutral[700],
     paddingTop: 8,
+  },
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.button[100],
+    borderColor: colors.button[200],
+    borderWidth: 2,
+    borderRadius: 5,
+    padding: 24,
+    height: 40,
+    width: 380,
+    marginBottom: 70,
+  },
+  buttonText: {
+    color: colors.neutral[100],
+    fontSize: 20,
+    fontWeight: '600',
   },
 });
