@@ -45,6 +45,12 @@ export default StyleSheet.create({
     color: colors.neutral[700],
     paddingTop: 8,
   },
+  quantity: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: colors.neutral[700],
+    paddingTop: 8,
+  },
   button: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -61,5 +67,24 @@ export default StyleSheet.create({
     color: colors.neutral[100],
     fontSize: 20,
     fontWeight: '600',
+  },
+  buttonHeader: {
+    display: 'flex',
+  },
+  total: {
+    fontSize: 24,
+    color: colors.neutral[700],
+  },
+  totalHistory: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: colors.neutral[100],
+    borderRadius: 5,
+    marginTop: 8,
+    marginLeft: 16,
+    marginRight: 16,
+    marginBottom: 16,
+    padding: 8,
   },
 });

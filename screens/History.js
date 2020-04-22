@@ -1,12 +1,56 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, FlatList, View, Image, TouchableOpacity, Button, Alert, onPress, HeaderBarButton } from 'react-native';
 import { Header } from 'react-native-elements';
+
+import core from '../style/core';
+
+const DATA = [
+  {
+    id: '1',
+    title: 'Coca Cola',
+    content: '33 cl',
+    price: '€1,50',
+    img: require('../img/photo-of-coca-cola-bottle-2668308.jpg'),
+    quantity: '4',
+  },
+  {
+    id: '2',
+    title: 'Limonade',
+    content: '33 cl',
+    price: '€1,30',
+    img: require('../img/photo-of-lemon-slices-inside-bottle-3651045.jpg'),
+    quantity: '2',
+  },
+];
+
+function Item({ id, title, content, price, img, quantity }) {
+  return (
+    <View style={core.item}>
+      <Image source={img} style={{ width: 100, height: 100 }}></Image>
+      <View style={core.info}>
+        <Text style={core.title}>
+          {title} - {content}
+        </Text>
+        <Text style={core.price}>{price}</Text>
+        <Text style={core.quantity}>x{quantity}</Text>
+      </View>
+    </View>
+  );
+}
 
 const History = () => {
   return (
     <>
-    <Header centerComponent={{ text: 'History', style: { color: '#fff', fontSize: 24, fontWeight: '600' } }} backgroundColor="#FF4E3A" containerStyle={{ height: 64, paddingBottom: 24 }} />
-      <Text>History</Text>
+      <Header centerComponent={{ text: 'History', style: { color: '#fff', fontSize: 24, fontWeight: '600' } }} backgroundColor="#FF4E3A" containerStyle={{ height: 64, paddingBottom: 24, display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+        <TouchableOpacity style={core.buttonHeader}>
+          <Text style={core.buttonText}>Clear</Text>
+        </TouchableOpacity>
+      </Header>
+      <View style={core.totalHistory}>
+        <Text style={core.total}>Total:</Text>
+        <Text style={core.total}>€7,30</Text>
+      </View>
+      <FlatList data={DATA} renderItem={({ item }) => <Item id={item.id} title={item.title} content={item.content} price={item.price} img={item.img} quantity={item.quantity} />} keyExtractor={(item) => item.id} />
     </>
   );
 };
