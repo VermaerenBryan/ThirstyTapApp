@@ -78,7 +78,9 @@ const Menu = () => {
 
   return (
     <>
-      <Header centerComponent={{ text: 'ThirstyTap', style: { color: '#fff', fontSize: 24, fontWeight: '600' } }} backgroundColor="#FF4E3A" containerStyle={{ height: 64, paddingBottom: 24 }} />
+      <View style={core.header}>
+        <Text style={core.headerText}>ThirstyTap</Text>
+      </View>
       <FlatList data={DATA} renderItem={({ item }) => <Item id={item.id} title={item.title} content={item.content} price={item.price} img={item.img} selected={!!selected.get(item.id)} onSelect={onSelect} />} keyExtractor={(item) => item.id} extraData={selected} />
       <View style={core.container}>
         <TouchableOpacity style={core.button} onPress={onPress}>

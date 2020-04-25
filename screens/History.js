@@ -41,11 +41,13 @@ function Item({ id, title, content, price, img, quantity }) {
 const History = () => {
   return (
     <>
-      <Header centerComponent={{ text: 'History', style: { color: '#fff', fontSize: 24, fontWeight: '600' } }} backgroundColor="#FF4E3A" containerStyle={{ height: 64, paddingBottom: 24, display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+      <View style={core.headerComponent}>
+        <Text style={core.headerTextComponent}>History</Text>
         <TouchableOpacity style={core.buttonHeader}>
           <Text style={core.buttonText}>Clear</Text>
         </TouchableOpacity>
-      </Header>
+      </View>
+
       <View style={core.totalHistory}>
         <Text style={core.total}>Total:</Text>
         <Text style={core.total}>€7,30</Text>
