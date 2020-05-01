@@ -14,18 +14,21 @@ export default StyleSheet.create({
   header: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     backgroundColor: '#FF4E3A',
-    height: 64,
+    height: 80,
+    paddingBottom: 12,
   },
   headerComponent: {
+    position: 'relative',
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
     backgroundColor: '#FF4E3A',
-    height: 64,
-    padding: 16,
+    height: 80,
+    paddingRight: 16,
+    paddingBottom: 12,
   },
   headerText: {
     color: '#fff',
@@ -36,9 +39,7 @@ export default StyleSheet.create({
   headerTextComponent: {
     color: '#fff',
     fontSize: 24,
-    alignSelf: 'center',
     fontWeight: '600',
-    paddingLeft: 145,
   },
   backgroundDark: {
     backgroundColor: colors.neutral[900],
@@ -96,8 +97,11 @@ export default StyleSheet.create({
     color: colors.neutral[100],
     fontSize: 20,
     fontWeight: '600',
+    paddingBottom: 12,
   },
   buttonHeader: {
+    position: 'absolute',
+    right: 16,
     display: 'flex',
   },
   total: {
