@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, FlatList, View, Image, TouchableOpacity, Button, Alert, onPress } from 'react-native';
+import { Text, View, Image, TouchableOpacity, Button, Alert, onPress, SectionList } from 'react-native';
 import { Header } from 'react-native-elements';
 
 import core from '../style/core';
+import data from '../assets/data.json';
 
 const DATA = [
   {
@@ -49,10 +50,16 @@ const DATA = [
   },
 ];
 
+const pictures = {
+  '../img/photo-of-coca-cola-bottle-2668308.jpg': require('../img/photo-of-coca-cola-bottle-2668308.jpg'),
+};
+
+/*require(img) => require('photos/cola.png/')*/
+
 function Item({ id, title, content, price, img, selected, onSelect }) {
   return (
     <TouchableOpacity onPress={() => onSelect(id)} style={[core.item, { borderColor: selected ? '#FF4E3A' : '#fff' }]}>
-      <Image source={img} style={{ width: 100, height: 100 }}></Image>
+      <Image source={{ uri: img }} style={{ width: 100, height: 100 }}></Image>
       <View style={core.info}>
         <Text style={core.title}>
           {title} - {content}
@@ -81,7 +88,7 @@ const Menu = () => {
       <View style={core.header}>
         <Text style={core.headerText}>ThirstyTap</Text>
       </View>
-      <FlatList data={DATA} renderItem={({ item }) => <Item id={item.id} title={item.title} content={item.content} price={item.price} img={item.img} selected={!!selected.get(item.id)} onSelect={onSelect} />} keyExtractor={(item) => item.id} extraData={selected} />
+      <SectionList sections={data} renderItem={({ item }) => <Item id={item.id} title={item.title} content={item.content} price={item.price} img={item.img} selected={!!selected.get(item.id)} onSelect={onSelect} />} renderSectionHeader={({ section: { category } }) => <Text style={core.category}>{category}</Text>} keyExtractor={(item) => item.id} extraData={selected} />
       <View style={core.container}>
         <TouchableOpacity style={core.button} onPress={onPress}>
           <Text style={core.buttonText}>Confirm Order</Text>

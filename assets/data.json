@@ -1,0 +1,59 @@
+[
+  {
+    "category": "Soda",
+    "data": [
+      {
+        "id": "1",
+        "title": "Coca Cola",
+        "content": "33 cl",
+        "price": "€1,50",
+        "img": "https://images.pexels.com/photos/2668308/pexels-photo-2668308.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      },
+      {
+        "id": "2",
+        "title": "Lemonade",
+        "content": "33 cl",
+        "price": "€1,30",
+        "img": "https://images.pexels.com/photos/3651045/pexels-photo-3651045.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      }
+    ]
+  },
+  {
+    "category": "Alcohol",
+    "data": [
+      {
+        "id": "3",
+        "title": "Carlsberg",
+        "content": "33 cl",
+        "price": "€2,20",
+        "img": "https://images.pexels.com/photos/1435598/pexels-photo-1435598.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+      },
+      {
+        "id": "4",
+        "title": "Corona",
+        "content": "33 cl",
+        "price": "€2,60",
+        "img": "https://images.pexels.com/photos/2286972/pexels-photo-2286972.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      },
+      {
+        "id": "5",
+        "title": "Whiskey",
+        "content": "10 cl",
+        "price": "€8,10",
+        "img": "https://images.pexels.com/photos/339696/pexels-photo-339696.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      }
+    ]
+  },
+  {
+    "category": "Cocktails",
+    "data": [
+      {
+        "id": "6",
+        "title": "Mojito",
+        "content": "22 cl",
+        "price": "€3,30",
+        "img": "https://images.pexels.com/photos/1187766/pexels-photo-1187766.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      }
+    ]
+  }
+]

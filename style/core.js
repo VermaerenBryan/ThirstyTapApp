@@ -75,6 +75,14 @@ export default StyleSheet.create({
     color: colors.neutral[700],
     paddingTop: 8,
   },
+  category: {
+    fontSize: 22,
+    fontWeight: '600',
+    color: colors.neutral[400],
+    paddingTop: 8,
+    paddingLeft: 16,
+    padding: 8,
+  },
   quantity: {
     fontSize: 18,
     fontWeight: '600',
