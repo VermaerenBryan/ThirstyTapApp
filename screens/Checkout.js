@@ -38,7 +38,7 @@ function Item({ id, title, content, price, img, quantity }) {
   );
 }
 
-const Checkout = ({navigation}) => {
+const Checkout = ({ navigation }) => {
   const [personName, onChangeNameText] = React.useState('');
   const [tableNumber, onChangeNumberText] = React.useState('');
 
@@ -63,12 +63,12 @@ const Checkout = ({navigation}) => {
             <Text style={core.lineText}>€10,40</Text>
           </View>
 
-          <View style={core.name}>
+          <View style={core.inputView}>
             <Text style={core.inputText}>Name:</Text>
             <TextInput style={core.input} placeholder={'Name'} textAlign={'center'} maxLength={12} onChangeText={(text) => onChangeNameText(text)} value={personName} />
           </View>
 
-          <View style={core.name}>
+          <View style={core.inputView}>
             <Text style={core.inputText}>Table number:</Text>
             <TextInput style={core.input} placeholder={'Number'} textAlign={'center'} maxLength={2} onChangeText={(text) => onChangeNumberText(text)} value={tableNumber} />
           </View>
@@ -76,7 +76,7 @@ const Checkout = ({navigation}) => {
           <Text style={core.checkoutTitle}>Payment Method</Text>
 
           <View style={core.paymentButtons}>
-            <TouchableOpacity style={core.buttonPayment}>
+            <TouchableOpacity style={core.buttonPayment} onPress={() => navigation.navigate('CheckoutCash')}>
               <Svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24">
                 <G>
                   <Rect fill="none" height="24" width="24" />
@@ -89,7 +89,7 @@ const Checkout = ({navigation}) => {
               <Text style={core.buttonPaymentText}>Cash</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={core.buttonPayment} onPress={() => navigation.navigate('CheckoutCreditCard')}> 
+            <TouchableOpacity style={core.buttonPayment} onPress={() => navigation.navigate('CheckoutCreditCard')}>
               <Svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                 <Path d="M0 0h24v24H0z" fill="none" />
                 <Path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z" fill="#191919" />

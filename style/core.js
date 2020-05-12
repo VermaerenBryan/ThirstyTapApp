@@ -41,6 +41,22 @@ export default StyleSheet.create({
     fontSize: 24,
     fontWeight: '600',
   },
+  headerArrow: {
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    backgroundColor: '#FF4E3A',
+    height: 80,
+    paddingRight: 16,
+    paddingBottom: 12,
+  },
+  buttonArrow: {
+    position: 'absolute',
+    left: 0,
+    bottom: 3,
+  },
   backgroundDark: {
     backgroundColor: colors.neutral[900],
   },
@@ -172,6 +188,7 @@ export default StyleSheet.create({
     color: colors.neutral[800],
     fontSize: 24,
     fontWeight: '600',
+    paddingTop: 16,
   },
   lineText: {
     fontSize: 20,
@@ -187,7 +204,7 @@ export default StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 32,
   },
-  name: {
+  inputView: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -205,5 +222,31 @@ export default StyleSheet.create({
     borderColor: colors.neutral[500],
     borderWidth: 1,
     borderRadius: 5,
+  },
+  inputCareholder: {
+    height: 40,
+    width: 'auto',
+    backgroundColor: colors.neutral[100],
+    borderColor: colors.neutral[500],
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  inputCard: {
+    height: 40,
+    width: 80,
+    backgroundColor: colors.neutral[100],
+    borderColor: colors.neutral[500],
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  creditCardText: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: colors.neutral[800],
+    paddingTop: 16,
+    paddingBottom: 8,
+  },
+  inputCreditCardView: {
+    paddingBottom: 8,
   },
 });

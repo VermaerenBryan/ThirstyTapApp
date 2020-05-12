@@ -10,6 +10,8 @@ import Menu from './screens/Menu';
 import History from './screens/History';
 import Checkout from './screens/Checkout';
 import CheckoutCreditCard from './screens/CheckoutCreditCard';
+import CheckoutCompleted from './screens/CheckoutCompleted';
+import CheckoutCash from './screens/CheckoutCash';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -19,6 +21,8 @@ const CheckoutScreen = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Checkout" component={Checkout} />
       <Stack.Screen name="CheckoutCreditCard" component={CheckoutCreditCard} />
+      <Stack.Screen name="CheckoutCompleted" component={CheckoutCompleted} />
+      <Stack.Screen name="CheckoutCash" component={CheckoutCash} />
     </Stack.Navigator>
   );
 };
