@@ -166,6 +166,19 @@ export default StyleSheet.create({
     color: colors.neutral[800],
     paddingLeft: 8,
   },
+  buttonDate: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: 'center',
+    height: 40,
+    backgroundColor: colors.neutral[900],
+  },
+  buttonDateText: {
+    fontSize: 18,
+    color: colors.neutral[100],
+    fontWeight: '600',
+    textAlign: 'center',
+  },
   total: {
     fontSize: 24,
     color: colors.neutral[700],

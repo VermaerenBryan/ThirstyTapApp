@@ -1,10 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, TextInput, View, Image, TouchableOpacity, Button, Alert, onPress, HeaderBarButton } from 'react-native';
 import Svg, { Rect, Path, G } from 'react-native-svg';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import core from '../style/core';
 
 const CheckoutCreditCard = ({ navigation }) => {
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+  const showTimepicker = () => {
+    showMode('time');
+  };
+
   const [careholder, onChangeCareholderText] = React.useState('');
   const [card1, onChangeCard1Text] = React.useState('');
   const [card2, onChangeCard2Text] = React.useState('');
@@ -27,9 +51,7 @@ const CheckoutCreditCard = ({ navigation }) => {
         <View style={core.inputCreditCardView}>
           <Text style={core.creditCardText}>Name careholder</Text>
           <TextInput style={core.inputCareholder} placeholder={'Name'} textAlign={'left'} maxLength={30} onChangeText={(text) => onChangeCareholderText(text)} value={careholder} />
-        </View>
 
-        <View style={core.inputCreditCardView}>
           <Text style={core.creditCardText}>Card Number</Text>
           <View style={core.inputView}>
             <TextInput style={core.inputCard} placeholder={'0000'} textAlign={'center'} maxLength={4} onChangeText={(text) => onChangeCard1Text(text)} value={card1} />
@@ -37,6 +59,12 @@ const CheckoutCreditCard = ({ navigation }) => {
             <TextInput style={core.inputCard} placeholder={'0000'} textAlign={'center'} maxLength={4} onChangeText={(text) => onChangeCard3Text(text)} value={card3} />
             <TextInput style={core.inputCard} placeholder={'0000'} textAlign={'center'} maxLength={4} onChangeText={(text) => onChangeCard4Text(text)} value={card4} />
           </View>
+
+          <Text style={core.creditCardText}>Expiration Date</Text>
+          {show && <DateTimePicker testID="dateTimePicker" timeZoneOffsetInMinutes={0} value={date} mode={mode} is24Hour={true} display="default" onChange={onChange} />}
+          <TouchableOpacity style={core.buttonDate} onPress={showDatepicker}>
+            <Text style={core.buttonDateText}>Choose Date</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </>
