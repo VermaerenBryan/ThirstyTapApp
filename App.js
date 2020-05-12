@@ -1,17 +1,29 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import colors from './style/colors';
 import Menu from './screens/Menu';
 import History from './screens/History';
 import Checkout from './screens/Checkout';
+import CheckoutCreditCard from './screens/CheckoutCreditCard';
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-export default function App() {
+const CheckoutScreen = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Checkout" component={Checkout} />
+      <Stack.Screen name="CheckoutCreditCard" component={CheckoutCreditCard} />
+    </Stack.Navigator>
+  );
+};
+
+const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -37,8 +49,10 @@ export default function App() {
       >
         <Tab.Screen name="Menu" component={Menu} />
         <Tab.Screen name="History" component={History} />
-        <Tab.Screen name="Checkout" component={Checkout} />
+        <Tab.Screen name="Checkout" component={CheckoutScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
-}
+};
+
+export default App;

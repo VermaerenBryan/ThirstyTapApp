@@ -37,7 +37,7 @@ function Item({ id, title, content, price, img, quantity }) {
   );
 }
 
-const History = () => {
+const CheckoutCreditCard = () => {
   return (
     <>
       <View style={core.headerComponent}>
@@ -57,4 +57,4 @@ const History = () => {
   );
 };
 
-export default History;
+export default CheckoutCreditCard;

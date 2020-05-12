@@ -1,72 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, Image, TouchableOpacity, Button, Alert, onPress, SectionList } from 'react-native';
-import { Header } from 'react-native-elements';
+import Svg, { Rect, Path } from 'react-native-svg';
 
 import core from '../style/core';
 import data from '../assets/data.json';
 
-const DATA = [
-  {
-    id: '1',
-    title: 'Coca Cola',
-    content: '33 cl',
-    price: '€1,50',
-    img: require('../img/photo-of-coca-cola-bottle-2668308.jpg'),
-  },
-  {
-    id: '2',
-    title: 'Limonade',
-    content: '33 cl',
-    price: '€1,30',
-    img: require('../img/photo-of-lemon-slices-inside-bottle-3651045.jpg'),
-  },
-  {
-    id: '3',
-    title: 'Carlsberg',
-    content: '33 cl',
-    price: '€2,20',
-    img: require('../img/green-glass-liquor-bottle-1435598.jpg'),
-  },
-  {
-    id: '4',
-    title: 'Corona',
-    content: '33 cl',
-    price: '€2,60',
-    img: require('../img/person-holding-corona-extra-bottle-2921584.jpg'),
-  },
-  {
-    id: '5',
-    title: 'Whiskey',
-    content: '10 cl',
-    price: '€8,10',
-    img: require('../img/alcohol-alcoholic-beverage-cold-339696.jpg'),
-  },
-  {
-    id: '6',
-    title: 'Mojito',
-    content: '22 cl',
-    price: '€3,30',
-    img: require('../img/lime-cocktail-drink-with-two-straws-1187766.jpg'),
-  },
-];
-
-const pictures = {
-  '../img/photo-of-coca-cola-bottle-2668308.jpg': require('../img/photo-of-coca-cola-bottle-2668308.jpg'),
-};
-
-/*require(img) => require('photos/cola.png/')*/
-
 function Item({ id, title, content, price, img, selected, onSelect }) {
+  const [counter, setCounter] = useState(false);
   return (
-    <TouchableOpacity onPress={() => onSelect(id)} style={[core.item, { borderColor: selected ? '#FF4E3A' : '#fff' }]}>
-      <Image source={{ uri: img }} style={{ width: 100, height: 100 }}></Image>
-      <View style={core.info}>
-        <Text style={core.title}>
-          {title} - {content}
-        </Text>
-        <Text style={core.price}>{price}</Text>
-      </View>
-    </TouchableOpacity>
+    <View style={core.marginCommon}>
+      <TouchableOpacity onPress={() => onSelect(id, counter, setCounter)} style={[core.item, { borderColor: selected ? '#FF4E3A' : '#fff' }]}>
+        <Image source={{ uri: img }} style={{ width: 100, height: 100 }}></Image>
+        <View style={core.info}>
+          <Text style={core.title}>
+            {title} - {content}
+          </Text>
+          <Text style={core.price}>{price}</Text>
+
+          {counter ? (
+            <View style={core.count}>
+              <Svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                <Path d="M19 13H5v-2h14v2z" />
+                <Path d="M0 0h24v24H0z" fill="none" />
+              </Svg>
+              <Text style={core.addText}>1</Text>
+              <Svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                <Path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                <Path d="M0 0h24v24H0z" fill="none" />
+              </Svg>
+            </View>
+          ) : null}
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 }
 
@@ -74,11 +40,12 @@ const Menu = () => {
   const [selected, setSelected] = React.useState(new Map());
 
   const onSelect = React.useCallback(
-    (id) => {
+    (id, counter, setCounter) => {
       const newSelected = new Map(selected);
       newSelected.set(id, !selected.get(id));
 
       setSelected(newSelected);
+      setCounter(!counter);
     },
     [selected]
   );
