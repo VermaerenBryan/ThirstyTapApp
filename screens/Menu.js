@@ -38,6 +38,7 @@ function Item({ id, title, content, price, img, selected, onSelect }) {
 
 const Menu = () => {
   const [selected, setSelected] = React.useState(new Map());
+  const [hideButton, setHideButton] = useState(true);
 
   const onSelect = React.useCallback(
     (id, counter, setCounter) => {
@@ -46,6 +47,12 @@ const Menu = () => {
 
       setSelected(newSelected);
       setCounter(!counter);
+      
+      if (Array.from(newSelected.values()).includes(true)) {
+        setHideButton(false);
+      } else {
+        setHideButton(true);
+      }
     },
     [selected]
   );
@@ -56,11 +63,13 @@ const Menu = () => {
         <Text style={core.headerText}>ThirstyTap</Text>
       </View>
       <SectionList sections={data} renderItem={({ item }) => <Item id={item.id} title={item.title} content={item.content} price={item.price} img={item.img} selected={!!selected.get(item.id)} onSelect={onSelect} />} renderSectionHeader={({ section: { category } }) => <Text style={core.category}>{category}</Text>} keyExtractor={(item) => item.id} extraData={selected} />
-      <View style={core.container}>
-        <TouchableOpacity style={core.button} onPress={onPress}>
-          <Text style={core.buttonText}>Confirm Order</Text>
-        </TouchableOpacity>
-      </View>
+      {hideButton ? null : (
+        <View style={core.container}>
+          <TouchableOpacity style={core.button} onPress={onPress}>
+            <Text style={core.buttonText}>Confirm Order</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </>
   );
 };
