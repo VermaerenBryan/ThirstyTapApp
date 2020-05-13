@@ -6,14 +6,32 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import core from '../style/core';
 
 const CheckoutCreditCard = ({ navigation }) => {
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
+  const [showButton, setShowButton] = useState(false);
+  const [inputs, changeInputs] = React.useState(['', '', '', '', '', '', '']);
+  const checkInputs = (array) => {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] == '' || array[i] == Date()) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const updateInputs = (text, index) => {
+    const tempArray = [...inputs];
+    tempArray[index] = text;
+    changeInputs(tempArray);
+    setShowButton(checkInputs(tempArray));
+  };
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
+    updateInputs(currentDate.toString(), 5);
   };
 
   const showMode = (currentMode) => {
@@ -28,12 +46,6 @@ const CheckoutCreditCard = ({ navigation }) => {
   const showTimepicker = () => {
     showMode('time');
   };
-
-  const [careholder, onChangeCareholderText] = React.useState('');
-  const [card1, onChangeCard1Text] = React.useState('');
-  const [card2, onChangeCard2Text] = React.useState('');
-  const [card3, onChangeCard3Text] = React.useState('');
-  const [card4, onChangeCard4Text] = React.useState('');
 
   return (
     <>
@@ -50,14 +62,14 @@ const CheckoutCreditCard = ({ navigation }) => {
       <View style={core.marginCommon}>
         <View style={core.inputCreditCardView}>
           <Text style={core.creditCardText}>Name careholder</Text>
-          <TextInput style={core.inputCareholder} placeholder={'Name'} textAlign={'left'} maxLength={30} onChangeText={(text) => onChangeCareholderText(text)} value={careholder} />
+          <TextInput style={core.inputCareholder} placeholder={'Name'} textAlign={'left'} maxLength={30} onChangeText={(text) => updateInputs(text, 0)} value={inputs[0]} />
 
           <Text style={core.creditCardText}>Card Number</Text>
           <View style={core.inputView}>
-            <TextInput style={core.inputCard} placeholder={'0000'} textAlign={'center'} maxLength={4} onChangeText={(text) => onChangeCard1Text(text)} value={card1} />
-            <TextInput style={core.inputCard} placeholder={'0000'} textAlign={'center'} maxLength={4} onChangeText={(text) => onChangeCard2Text(text)} value={card2} />
-            <TextInput style={core.inputCard} placeholder={'0000'} textAlign={'center'} maxLength={4} onChangeText={(text) => onChangeCard3Text(text)} value={card3} />
-            <TextInput style={core.inputCard} placeholder={'0000'} textAlign={'center'} maxLength={4} onChangeText={(text) => onChangeCard4Text(text)} value={card4} />
+            <TextInput style={core.inputCard} placeholder={'0000'} textAlign={'center'} maxLength={4} onChangeText={(text) => updateInputs(text, 1)} value={inputs[1]} />
+            <TextInput style={core.inputCard} placeholder={'0000'} textAlign={'center'} maxLength={4} onChangeText={(text) => updateInputs(text, 2)} value={inputs[2]} />
+            <TextInput style={core.inputCard} placeholder={'0000'} textAlign={'center'} maxLength={4} onChangeText={(text) => updateInputs(text, 3)} value={inputs[3]} />
+            <TextInput style={core.inputCard} placeholder={'0000'} textAlign={'center'} maxLength={4} onChangeText={(text) => updateInputs(text, 4)} value={inputs[4]} />
           </View>
 
           <Text style={core.creditCardText}>Expiration Date</Text>
@@ -65,8 +77,20 @@ const CheckoutCreditCard = ({ navigation }) => {
           <TouchableOpacity style={core.buttonDate} onPress={showDatepicker}>
             <Text style={core.buttonDateText}>Choose Date</Text>
           </TouchableOpacity>
+          <Text style={core.creditCardText}>CVV/CVC</Text>
+          <View style={core.inputCvv}>
+            <TextInput style={core.inputCard} placeholder={'0000'} textAlign={'center'} maxLength={4} onChangeText={(text) => updateInputs(text, 6)} value={inputs[6]} />
+            <Text style={core.creditCardInfo}>3 or 4 digit code</Text>
+          </View>
         </View>
       </View>
+      {showButton ? (
+        <View style={core.container}>
+          <TouchableOpacity style={core.button} onPress={() => navigation.navigate('CheckoutCompleted')}>
+            <Text style={core.buttonText}>Complete Order</Text>
+          </TouchableOpacity>
+        </View>
+      ) : null}
     </>
   );
 };

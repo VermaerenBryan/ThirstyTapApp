@@ -115,6 +115,19 @@ export default StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
+  continue: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.button[100],
+    borderColor: colors.button[200],
+    borderWidth: 2,
+    borderRadius: 5,
+    padding: 24,
+    height: 40,
+    width: 380,
+    marginBottom: -10,
+  },
   button: {
     display: 'flex',
     justifyContent: 'center',
@@ -197,6 +210,11 @@ export default StyleSheet.create({
     marginLeft: 16,
     marginRight: 16,
   },
+  marginImage: {
+    marginLeft: 16,
+    marginRight: 16,
+    marginTop: -50,
+  },
   checkoutTitle: {
     color: colors.neutral[800],
     fontSize: 24,
@@ -252,6 +270,11 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
   },
+  inputCvv: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   creditCardText: {
     fontSize: 20,
     fontWeight: '600',
@@ -259,7 +282,23 @@ export default StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 8,
   },
+  creditCardInfo: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: colors.neutral[400],
+    paddingLeft: 16,
+  },
   inputCreditCardView: {
     paddingBottom: 8,
+  },
+  imageBartender: {
+    width: 500,
+    height: 500,
+    marginTop: -70,
+  },
+  imageText: {
+    fontSize: 20,
+    color: colors.neutral[800],
+    textAlign: 'center',
   },
 });
