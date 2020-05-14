@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, Image, TouchableOpacity, Button, Alert, onPress, SectionList } from 'react-native';
 import Svg, { Rect, Path } from 'react-native-svg';
+import * as SQLite from 'expo-sqlite';
 
 import core from '../style/core';
-import data from '../assets/data.json';
+// import data from '../assets/data.json';
 
-const updateQuantityOrder = (id, orderQuantity, setOrderQuantity, isAddition = true) => {
+let categories;
+let data = [];
+const dbConnection = SQLite.openDatabase('thirstytapapp');
+
+const updateQuantityOrder = (id, orderQuantity, setOrderQuantity, isAddition = true, orders, setOrders) => {
   let value = orderQuantity;
   if (isAddition) {
     value += 1;
@@ -15,15 +20,15 @@ const updateQuantityOrder = (id, orderQuantity, setOrderQuantity, isAddition = t
     if (value < 1) value = 1;
     setOrderQuantity(value--);
   }
+  const tempOrders = new Map(orders);
+  tempOrders.set(id, value);
+  setOrders(tempOrders);
+  console.log(orders);
 };
 
 function Item({ id, title, content, price, img, selected, onSelect, orders, setOrders }) {
   const [counter, setCounter] = useState(false);
   const [orderQuantity, setOrderQuantity] = useState(1);
-  // const tempOrders = new Map(orders);
-  // tempOrders.set(id, 0);
-  // setOrders(tempOrders);
-  // console.log(orders);
   return (
     <View style={core.marginCommon}>
       <TouchableOpacity onPress={() => onSelect(id, counter, setCounter)} style={[core.item, { borderColor: selected ? '#FF4E3A' : '#fff' }]}>
@@ -36,7 +41,7 @@ function Item({ id, title, content, price, img, selected, onSelect, orders, setO
 
           {counter ? (
             <View style={core.count}>
-              <TouchableOpacity onPress={() => updateQuantityOrder(id, orderQuantity, setOrderQuantity, false)}>
+              <TouchableOpacity onPress={() => updateQuantityOrder(id, orderQuantity, setOrderQuantity, false, orders, setOrders)}>
                 <Svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                   <Path d="M19 13H5v-2h14v2z" />
                   <Path d="M0 0h24v24H0z" fill="none" />
@@ -45,7 +50,7 @@ function Item({ id, title, content, price, img, selected, onSelect, orders, setO
 
               <Text style={core.addText}>{orderQuantity}</Text>
 
-              <TouchableOpacity onPress={() => updateQuantityOrder(id, orderQuantity, setOrderQuantity, true)}>
+              <TouchableOpacity onPress={() => updateQuantityOrder(id, orderQuantity, setOrderQuantity, true, orders, setOrders)}>
                 <Svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                   <Path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
                   <Path d="M0 0h24v24H0z" fill="none" />
@@ -60,9 +65,32 @@ function Item({ id, title, content, price, img, selected, onSelect, orders, setO
 }
 
 const Menu = ({ navigation }) => {
+  useEffect(() => {
+    getCategories();
+  }, []);
   const [selected, setSelected] = React.useState(new Map());
   const [hideButton, setHideButton] = useState(true);
   const [orders, setOrders] = useState(new Map());
+  const [update, setUpdate] = useState(false);
+
+  const getCategories = () => {
+    dbConnection.transaction((tx) => {
+      tx.executeSql('SELECT categoryName FROM Category', [], (_, { rows: { _array } }) => {
+        categories = _array;
+        getProducts();
+      });
+    });
+  };
+
+  const getProducts = () => {
+    for (let category of categories) {
+      dbConnection.transaction((tx) => {
+        tx.executeSql(`SELECT * FROM Product JOIN Category using(categoryId) WHERE categoryName = ?`, [category.categoryName], (_, { rows: { _array } }) => {
+          data.push({ category: category.categoryName, data: _array });
+        });
+      });
+    }
+  };
 
   const onSelect = React.useCallback(
     (id, counter, setCounter) => {
@@ -87,9 +115,22 @@ const Menu = ({ navigation }) => {
         <Text style={core.headerText}>ThirstyTap</Text>
       </View>
       <SectionList contentContainerStyle={core.itemBottom} sections={data} renderItem={({ item }) => <Item id={item.id} title={item.title} content={item.content} price={item.price} img={item.img} orders={orders} setOrders={setOrders} selected={!!selected.get(item.id)} onSelect={onSelect} />} renderSectionHeader={({ section: { category } }) => <Text style={core.category}>{category}</Text>} keyExtractor={(item) => item.id} extraData={selected} />
+      {update ? null : (
+        <View style={core.container}>
+          <TouchableOpacity style={core.buttonStart} onPress={() => setUpdate(!update)}>
+            <Text style={core.buttonText}>Press to start!</Text>
+          </TouchableOpacity>
+        </View>
+      )}
       {hideButton ? null : (
         <View style={core.container}>
-          <TouchableOpacity style={core.button} onPress={() => navigation.navigate('Checkout')}>
+          <TouchableOpacity
+            style={core.button}
+            onPress={() => {
+              console.log(orders);
+              navigation.navigate('Checkout');
+            }}
+          >
             <Text style={core.buttonText}>Confirm Order</Text>
           </TouchableOpacity>
         </View>
@@ -97,5 +138,4 @@ const Menu = ({ navigation }) => {
     </>
   );
 };
-
 export default Menu;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, FlatList, View, Image, TouchableOpacity, TextInput, ScrollView, Button, Alert, onPress, HeaderBarButton } from 'react-native';
 import Svg, { Rect, Path, G } from 'react-native-svg';
+import * as SQLite from 'expo-sqlite';
 
 import core from '../style/core';
 

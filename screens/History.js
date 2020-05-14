@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, FlatList, View, Image, TouchableOpacity, Button, Alert, onPress, HeaderBarButton } from 'react-native';
+import * as SQLite from 'expo-sqlite';
 
 import core from '../style/core';
 
