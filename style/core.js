@@ -74,6 +74,9 @@ export default StyleSheet.create({
     borderWidth: 2,
     borderRadius: 5,
   },
+  itemBottom: {
+    paddingBottom: 75,
+  },
   info: {
     flex: 1,
     flexDirection: 'column',
