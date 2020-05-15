@@ -149,7 +149,7 @@ const Menu = ({ navigation }) => {
             onPress={() => {
               const orderedProducts = prepareData();
               console.log(orderedProducts);
-              navigation.navigate('Checkout', {data: orderedProducts});
+              navigation.navigate('Checkout', { data: orderedProducts });
             }}
           >
             <Text style={core.buttonText}>Confirm Order</Text>
