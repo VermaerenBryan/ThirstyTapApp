@@ -39,7 +39,7 @@ function Item({ id, title, content, price, img, quantity }) {
   );
 }
 
-const Checkout = ({ navigation }) => {
+const Checkout = ({ route, navigation }) => {
   const [personName, onChangeNameText] = React.useState('');
   const [tableNumber, onChangeNumberText] = React.useState('');
 

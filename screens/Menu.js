@@ -6,7 +6,7 @@ import * as SQLite from 'expo-sqlite';
 import core from '../style/core';
 // import data from '../assets/data.json';
 
-let categories;
+let categories, products;
 let data = [];
 const dbConnection = SQLite.openDatabase('thirstytapapp');
 
@@ -23,7 +23,6 @@ const updateQuantityOrder = (id, orderQuantity, setOrderQuantity, isAddition = t
   const tempOrders = new Map(orders);
   tempOrders.set(id, value);
   setOrders(tempOrders);
-  console.log(orders);
 };
 
 function Item({ id, title, content, price, img, selected, onSelect, orders, setOrders }) {
@@ -67,11 +66,32 @@ function Item({ id, title, content, price, img, selected, onSelect, orders, setO
 const Menu = ({ navigation }) => {
   useEffect(() => {
     getCategories();
+    getAllProducts();
   }, []);
   const [selected, setSelected] = React.useState(new Map());
   const [hideButton, setHideButton] = useState(true);
   const [orders, setOrders] = useState(new Map());
   const [update, setUpdate] = useState(false);
+
+  const prepareData = () => {
+    let tempArray = [];
+    for (let element of products) {
+      if (orders.has(element.id)) {
+        let tempElement = element;
+        tempElement['quantityOrder'] = orders.get(element.id);
+        tempArray.push(tempElement);
+      }
+    }
+    return tempArray;
+  };
+
+  const getAllProducts = () => {
+    dbConnection.transaction((tx) => {
+      tx.executeSql('SELECT * FROM Product', [], (_, { rows: { _array } }) => {
+        products = _array;
+      });
+    });
+  };
 
   const getCategories = () => {
     dbConnection.transaction((tx) => {
@@ -127,8 +147,9 @@ const Menu = ({ navigation }) => {
           <TouchableOpacity
             style={core.button}
             onPress={() => {
-              console.log(orders);
-              navigation.navigate('Checkout');
+              const orderedProducts = prepareData();
+              console.log(orderedProducts);
+              navigation.navigate('Checkout', {data: orderedProducts});
             }}
           >
             <Text style={core.buttonText}>Confirm Order</Text>
